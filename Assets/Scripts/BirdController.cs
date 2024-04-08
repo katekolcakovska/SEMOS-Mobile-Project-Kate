@@ -9,6 +9,7 @@ public class BirdController : MonoBehaviour
 {
     [SerializeField] private float jumpSpeed;
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject startScreen;
 
     public UnityEvent OnHit;
     public UnityEvent OnPoint;
@@ -19,10 +20,13 @@ public class BirdController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        Time.timeScale = 0;
+        startScreen.SetActive(true);
         rb = GetComponent<Rigidbody2D>();
 
         // unpause game
-        Time.timeScale = 1;
+        
     }
 
     // Update is called once per frame
@@ -32,6 +36,10 @@ public class BirdController : MonoBehaviour
         if (GetJumpInput())
         {
             Debug.Log("Player pressed the jump button");
+            // start game
+            Time.timeScale = 1;
+            //remove startScreen
+            startScreen.SetActive(false);
             Jump();
         }
 
@@ -84,4 +92,12 @@ public class BirdController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+ /*   public void StartGame()
+    {
+        startScreen.SetActive(false);
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        
+    }*/
 }
