@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
  
 [RequireComponent(typeof(Rigidbody2D))]
 public class BirdController : MonoBehaviour
@@ -11,11 +12,19 @@ public class BirdController : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject startScreen;
 
+    [SerializeField] private TextMeshProUGUI currentPointsText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
+
+
     public UnityEvent OnHit;
     public UnityEvent OnPoint;
     public UnityEvent OnJump;
 
     private Rigidbody2D rb;
+
+    private int currentPoints;
+
+    private int highScorePoints;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +34,11 @@ public class BirdController : MonoBehaviour
         startScreen.SetActive(true);
         rb = GetComponent<Rigidbody2D>();
 
+        currentPoints = 0;
+        currentPointsText.text = currentPoints.ToString();
+
+        highScorePoints = PlayerPrefs.GetInt("Highscore");
+        highScoreText.text = highScorePoints.ToString();
         // unpause game
         
     }
@@ -35,7 +49,7 @@ public class BirdController : MonoBehaviour
 
         if (GetJumpInput())
         {
-            Debug.Log("Player pressed the jump button");
+            
             // start game
             Time.timeScale = 1;
             //remove startScreen
@@ -55,9 +69,29 @@ public class BirdController : MonoBehaviour
         if (gameOverScreen != null)
             gameOverScreen.SetActive(true);
 
-
+        OnHit?.Invoke();
         // show points
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        currentPoints++;
+
+        currentPointsText.text = currentPoints.ToString();
+
+        //trigger event
+        OnPoint?.Invoke();
+
+        //so ova zapisuvame na hard disk-ot da pamti highscore
+        if(currentPoints > highScorePoints)
+        {
+            PlayerPrefs.SetInt("Highscore", currentPoints);
+            highScorePoints = currentPoints;
+            highScoreText.text = highScorePoints.ToString();
+        }
+
+        Debug.Log("current points: " + currentPoints);
     }
 
     private bool GetJumpInput()
