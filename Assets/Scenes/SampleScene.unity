@@ -2846,7 +2846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 3151719566159476094, guid: aa89c09471b499a44a43946c68772e7f, type: 3}
-  collectiblePrefab: {fileID: 0}
+  collectiblePrefab: {fileID: 3125726242613430097, guid: f6ddffc9138ec374ebeb88a19aabd04c, type: 3}
   spawnOrigin: {fileID: 377503587}
   obstacleParent: {fileID: 377503587}
   spawnInterval: 5.3

@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     // What to spawn
     [SerializeField] private GameObject obstaclePrefab;
-    [SerializeField] private GameObject collectiblePrefab;
+    /*[SerializeField] private GameObject collectiblePrefab;*/
 
     // Where to spawn
     [SerializeField] private Transform spawnOrigin;
@@ -31,7 +31,7 @@ public class SpawnManager : MonoBehaviour
 
         SpawnObstacle();
 
-        SpawnCollectible();
+        /*SpawnCollectible();*/
 
     }
 
@@ -43,7 +43,7 @@ public class SpawnManager : MonoBehaviour
             
             SpawnObstacle();
 
-            SpawnCollectible();
+            /*SpawnCollectible();*/
 
         }
 
@@ -85,12 +85,12 @@ public class SpawnManager : MonoBehaviour
         Instantiate(obstaclePrefab, randPos, spawnOrigin.rotation, obstacleParent);
     }
 
-    private void SpawnCollectible()
+    /*private void SpawnCollectible()
     {
         Vector2 randPos2 = spawnOrigin.position + new Vector3((spawnInterval / 1.65f), Random.Range(-spawnOffset, spawnOffset), 0);
         // ova so deleno na 1.65 da pobaram bolje nacin?
         Instantiate(collectiblePrefab, randPos2, spawnOrigin.rotation, obstacleParent);
-    }
+    }*/
 
     private void DestroyObstacles()
     {
